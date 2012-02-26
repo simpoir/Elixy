@@ -36,7 +36,26 @@
     <org.zkoss.version>5.0.3</org.zkoss.version>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <config.prefix>/etc</config.prefix>
   </properties>
+
+  <profiles>
+    <profile>
+      <id>test</id>
+      <properties>
+        <config.prefix>${basedir}</config.prefix>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.tomcat.maven</groupId>
+            <artifactId>tomcat7-maven-plugin</artifactId>
+            <version>2.0-beta-1</version>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <dependencies>
     <dependency>
@@ -69,7 +88,7 @@
       <artifactId>zhtml</artifactId>
       <version>${org.zkoss.version}</version>
     </dependency>
-  <dependency>
+    <dependency>
       <groupId>org.zkoss.zk</groupId>
       <artifactId>zul</artifactId>
       <version>${org.zkoss.version}</version>
@@ -90,6 +109,11 @@
       <artifactId>commons-lang</artifactId>
       <version>2.4</version>
     </dependency>
+    <dependency>
+      <groupId>bsh</groupId>
+      <artifactId>bsh</artifactId>
+      <version>2.0b4</version>
+    </dependency>
     
     <dependency>
       <groupId>javax.persistence</groupId>
@@ -100,15 +124,12 @@
 
   <build>
     <finalName>elixy</finalName>
-
-    <plugins>
-      <plugin>
-        <groupId>org.apache.tomcat.maven</groupId>
-        <artifactId>tomcat7-maven-plugin</artifactId>
-        <version>2.0-beta-1</version>
-      </plugin>
-
-    </plugins>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
 
   </build>
 

@@ -29,7 +29,10 @@
     <center sclass="contents">
       <borderlayout>
         <west size="10em" flex="true" collapsible="true" splittable="true">
-          <tree id="containerTree">
+          <zscript>
+            SimpleTreeModel treeModel = com.simpoir.elixy.Controller.getInstance().getTreeModel();
+          </zscript>
+          <tree id="containerTree" model="${treeModel}">
             <treecols>
               <treecol label="Containers"/>
             </treecols>
