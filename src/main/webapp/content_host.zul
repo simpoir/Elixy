@@ -1,0 +1,15 @@
+<?page title="content" contentType="text/html;charset=UTF-8"?>
+<zk>
+  <tabbox>
+    <tabs>
+      <tab label="Summary"/>
+      <tab label="Configuration" />
+      <tab label="Console" />
+    </tabs>
+    <tabpanels>
+      <tabpanel style="padding: 0;"> this is the host summary view for ${name} </tabpanel>
+      <tabpanel>this contains params</tabpanel>
+      <tabpanel> this allwos to have a console to the container</tabpanel>
+    </tabpanels>
+  </tabbox>
+</zk>

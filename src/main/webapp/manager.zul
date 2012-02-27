@@ -23,7 +23,10 @@
     </north>
     <south border="0">
       <div sclass="elixy-footer">
-        ©2012 Simon Poirier
+        <vbox width="100%" align="center">
+          <label>Copyright © 2012 Simon Poirier</label>
+          <label>All Rights Reserved</label>
+        </vbox>
       </div>
     </south>
     <center sclass="contents">
@@ -31,26 +34,26 @@
         <west size="10em" flex="true" collapsible="true" splittable="true">
           <zscript>
             SimpleTreeModel treeModel = com.simpoir.elixy.Controller.getInstance().getTreeModel();
+            void onTreeSel() {
+                Treeitem sel = containerTree.getSelectedItem();
+                contentView.setAttribute("name", sel.getLabel());
+                contentView.setAttribute("treeitem", sel);
+                if (sel.getTreechildren() == null) {
+                    contentView.setSrc("content_container.zul");
+                } else {
+                    contentView.setSrc("content_host.zul");
+                }
+                contentView.invalidate();
+            }
           </zscript>
-          <tree id="containerTree" model="${treeModel}">
+          <tree id="containerTree" model="${treeModel}" onSelect="onTreeSel()">
             <treecols>
               <treecol label="Containers"/>
             </treecols>
           </tree>
         </west>
         <center flex="true">
-          <tabbox>
-            <tabs>
-              <tab label="Summary" />
-              <tab label="Configuration" />
-              <tab label="Console" />
-            </tabs>
-            <tabpanels>
-              <tabpanel>this conains the summary of the config</tabpanel>
-              <tabpanel>this contains params</tabpanel>
-              <tabpanel> this allwos to have a console to the container</tabpanel>
-            </tabpanels>
-        </tabbox>
+          <include id="contentView" src="content_host.zul" name="Localhost"/>
         </center>
       </borderlayout>
     </center>

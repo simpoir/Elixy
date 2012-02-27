@@ -1,0 +1,46 @@
+<?page title="content" contentType="text/html;charset=UTF-8"?>
+<zk>
+  <div height="100%">
+    <toolbar>
+      <zscript>
+	String state = com.simpoir.elixy.Controller.getInstance()
+			.getState(treeitem).name();
+	void refreshContent() {
+        contentView.invalidate();
+          }
+	void start() {
+		com.simpoir.elixy.Controller.getInstance().start(treeitem);
+        Thread.sleep(200);
+		contentView.invalidate();
+	}
+	void stop() {
+		com.simpoir.elixy.Controller.getInstance().stop(treeitem);
+        Thread.sleep(200);
+		contentView.invalidate();
+	}
+</zscript>
+      <toolbarbutton label="Refresh" onClick="refreshContent()"/>
+      <toolbarbutton label="Start" onClick="start()" disabled='${state == "RUNNING"}'/>
+      <toolbarbutton label="Stop" onClick="stop()" disabled='${state == "STOPPED"}'/>
+      <toolbarbutton label="Freeze" disabled="true"/>
+      <toolbarbutton label="Thaw" disabled="true"/>
+      <toolbarbutton label="Destroy" disabled="true"/>
+    </toolbar>
+    <tabbox height="100%">
+      <tabs>
+        <tab label="Summary"/>
+        <tab label="Configuration" />
+        <tab label="Console" />
+      </tabs>
+      <tabpanels>
+        <tabpanel>
+          <image src="images/state_${state}.svg"/>
+          <label value="${state}" />
+          <label value="${treeitem.label}" />
+        </tabpanel>
+        <tabpanel>this contains params</tabpanel>
+        <tabpanel> this allwos to have a console to the container</tabpanel>
+      </tabpanels>
+    </tabbox>
+  </div>
+</zk>

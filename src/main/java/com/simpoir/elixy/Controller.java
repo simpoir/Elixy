@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.zkoss.zul.SimpleTreeModel;
 import org.zkoss.zul.SimpleTreeNode;
+import org.zkoss.zul.api.Treeitem;
 
 import com.simpoir.elixy.view.LocalTreeNode;
 
@@ -51,11 +52,36 @@ public class Controller {
 		return _props;
 	}
 
+	public void start(Treeitem item) {
+		String host = item.getParentItemApi().getLabel();
+		String container = item.getLabel();
+		_log.info(MessageFormat.format(
+				"Starting container named {1} on {0}",
+				host, container));
+		new LocalContainerControl(host, container).start();
+	}
+
+	public void stop(Treeitem item) {
+		String host = item.getParentItemApi().getLabel();
+		String container = item.getLabel();
+		_log.info(MessageFormat.format(
+				"Stopping container named {1} on {0}",
+				host, container));
+		new LocalContainerControl(host, container).stop();
+	}
+
+	public LocalContainerControl.State getState(Treeitem item) {
+		String host = item.getParentItemApi().getLabel();
+		String container = item.getLabel();
+		_log.info(MessageFormat.format(
+				"Fetching status of container named {1} on {0}",
+				host, container));
+		return new LocalContainerControl(host, container).getState();
+	}
+
 	public SimpleTreeModel getTreeModel() {
 		// TODO proper load the tree model
-		SimpleTreeNode[] nodes = new SimpleTreeNode[] {
-				new LocalTreeNode()
-		};
+		SimpleTreeNode[] nodes = new SimpleTreeNode[] { new LocalTreeNode() };
 		return new SimpleTreeModel(
 				new SimpleTreeNode("ROOT", Arrays.asList(nodes)));
 	}
