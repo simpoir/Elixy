@@ -1,9 +1,17 @@
 package com.simpoir.elixy;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import com.sun.jna.Library;
+import com.sun.jna.Native;
+
 public class LocalContainerControl {
+	private interface POSIX extends Library {
+		public int posix_openpt(int flags);
+	}
 
 	private final String _name;
 	private static final String CMD_PREFIX =
@@ -47,7 +55,8 @@ public class LocalContainerControl {
 	}
 
 	public State getState() {
-		Process proc;
+		BufferedReader reader = null;
+		Process proc = null;
 		String state;
 		try {
 			proc = Runtime.getRuntime().exec(new String[] {
@@ -58,13 +67,40 @@ public class LocalContainerControl {
 					"--state"
 			});
 			proc.waitFor();
-			state = new BufferedReader(new InputStreamReader(
-					proc.getInputStream())).readLine();
+			InputStream is = proc.getInputStream();
+			reader = new BufferedReader(new InputStreamReader(is));
+			state = reader.readLine();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (IOException e) {}
+			}
+			if (proc != null) {
+				proc.destroy();
+			}
 		}
 		state = state.split("\\W+")[1];
 		return State.valueOf(state);
+	}
+
+	public Process getConsole() {
+		Process proc;
+		String state;
+		try {
+			POSIX posix = (POSIX) Native.loadLibrary("c", POSIX.class);
+			int pt = posix.posix_openpt(0400|02);
+			proc = Runtime.getRuntime().exec(new String[] {
+					"/home/simpoir/Source/elixy/elixy/ptyfy.py",
+					"--name",
+					_name
+			});
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return proc;
 	}
 
 }

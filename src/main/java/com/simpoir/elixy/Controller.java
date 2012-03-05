@@ -8,8 +8,12 @@ import java.util.Properties;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.zkoss.zk.ui.Desktop;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.SimpleTreeModel;
 import org.zkoss.zul.SimpleTreeNode;
+import org.zkoss.zul.api.Textbox;
 import org.zkoss.zul.api.Treeitem;
 
 import com.simpoir.elixy.view.LocalTreeNode;
@@ -79,11 +83,37 @@ public class Controller {
 		return new LocalContainerControl(host, container).getState();
 	}
 
+	public void attach(Textbox console, Treeitem item)
+			throws InterruptedException {
+		String host = item.getParentItemApi().getLabel();
+		String container = item.getLabel();
+		final Desktop desktop = Executions.getCurrent().getDesktop();
+		if (desktop.isServerPushEnabled()) {
+			Messagebox.show("Alreay attached");
+		} else {
+			desktop.enableServerPush(true);
+			new ThreadedConsole(desktop, console,
+					new LocalContainerControl(host, container).getConsole()).start();
+		}
+	}
+
+	public void detach() throws InterruptedException {
+		final Desktop desktop = Executions.getCurrent().getDesktop();
+		if (desktop.isServerPushEnabled()) {
+			desktop.enableServerPush(false);
+		} else {
+			Messagebox.show("Alreay detached");
+		}
+	}
+
 	public SimpleTreeModel getTreeModel() {
 		// TODO proper load the tree model
 		SimpleTreeNode[] nodes = new SimpleTreeNode[] { new LocalTreeNode() };
 		return new SimpleTreeModel(
 				new SimpleTreeNode("ROOT", Arrays.asList(nodes)));
+	}
+
+	public void doSomething() {
 	}
 
 }

@@ -20,6 +20,13 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>elixy Maven Webapp</name>
   <description>Elixy is a web interface for managing LXC containers</description>
+  <licenses>
+    <license>
+      <name>GNU Affero General Public License</name>
+      <url>https://www.gnu.org/licenses/agpl-3.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
   <contributors>
     <contributor>
@@ -33,7 +40,7 @@
   <!-- Project properties -->
   <properties>
     <org.springframework.version>3.1.1.RELEASE</org.springframework.version>
-    <org.zkoss.version>5.0.3</org.zkoss.version>
+    <org.zkoss.version>5.0.6</org.zkoss.version>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <config.prefix>/etc</config.prefix>
@@ -119,6 +126,16 @@
       <groupId>javax.persistence</groupId>
       <artifactId>persistence-api</artifactId>
       <version>1.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.jna</groupId>
+      <artifactId>jna</artifactId>
+      <version>3.0.9</version>
+    </dependency>
+    <dependency>
+      <groupId>com.simpoir.zk</groupId>
+      <artifactId>term</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
 

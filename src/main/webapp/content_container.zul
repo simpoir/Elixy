@@ -1,5 +1,5 @@
 <?page title="content" contentType="text/html;charset=UTF-8"?>
-<zk>
+<zk xmlns:w="http://www.zkoss.org/2005/zk/client">
   <div height="100%">
     <toolbar>
       <zscript>
@@ -18,7 +18,15 @@
         Thread.sleep(200);
 		contentView.invalidate();
 	}
-</zscript>
+    void onAttach(com.simpoir.zk.vt.VirtTerm console) {
+        com.simpoir.elixy.Controller.getInstance().attach(console, treeitem);
+    }
+    void onKeyStroke(Textbox console_out) {
+        com.simpoir.elixy.Controller.getInstance().doSomething();
+        byte[] ch = console_out.getValue().getBytes();
+        ((com.simpoir.elixy.ThreadedConsole)desktop.getAttribute("console")).write(ch);
+    }
+      </zscript>
       <toolbarbutton label="Refresh" onClick="refreshContent()"/>
       <toolbarbutton label="Start" onClick="start()" disabled='${state == "RUNNING"}'/>
       <toolbarbutton label="Stop" onClick="stop()" disabled='${state == "STOPPED"}'/>
@@ -39,7 +47,10 @@
           <label value="${treeitem.label}" />
         </tabpanel>
         <tabpanel>this contains params</tabpanel>
-        <tabpanel> this allwos to have a console to the container</tabpanel>
+        <tabpanel>
+          <button label="Attach to console" onClick="onAttach(console)"/>
+          <virtterm id="console" cols="80" rows="24" />
+        </tabpanel>
       </tabpanels>
     </tabbox>
   </div>
