@@ -1,0 +1,32 @@
+<language-addon>
+    <addon-name>term</addon-name>
+  	<version>
+		<version-class>com.simpoir.zk.vt.Version</version-class>
+		<version-uid>0.0.1-SNAPSHOT</version-uid>
+		<zk-version>5.0.6</zk-version><!-- or later -->
+	</version>
+    
+	<language-name>xul/html</language-name>
+	<component>
+		<component-name>virtterm</component-name> <!-- required -->
+		<component-class>com.simpoir.zk.vt.VirtTerm</component-class> <!-- required -->
+		<widget-class>term.VirtTerm</widget-class> <!-- required -->
+		<mold>
+			<mold-name>default</mold-name>
+			<mold-uri>mold/virtterm.js</mold-uri>
+
+			<!--
+			== Tip in advance ==
+				You don't have to specify a css.dsp if you need not ,
+				but usually you need it.
+
+				You could assign a .css file ,too.
+
+				The css.dsp is almost as same as CSS file ,
+				but have more powerful enhancement.	(like EL support.)
+			====
+			-->
+			<css-uri>css/virtterm.css.dsp</css-uri>
+		</mold>
+	</component>
+</language-addon>

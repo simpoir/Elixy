@@ -1,0 +1,6 @@
+<zk>
+	<window title="Hello World!!" border="normal" width="300px"
+		apply="ctrl.DemoWindowComposer">
+		<virtterm id="myComp" cols="80" rows="24" onType='alert()' />
+	</window>
+</zk>
