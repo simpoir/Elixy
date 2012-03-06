@@ -20,6 +20,10 @@ In a shell::
 edit the config
 restart tomcat
 
+tomcat will also need some admin rights which are provided by visudo config::
+
+ tomcat6 ALL=NOPASSWD:/usr/bin/lxc-info,/usr/bin/lxc-start,/usr/bin/lxc-stop,/usr/bin/lxc-console
+
 
 TESTING
 =======

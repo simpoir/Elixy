@@ -1,4 +1,4 @@
-#-------------------------------------------------------------------------------
+/*------------------------------------------------------------------------------
 # Copyright (C) 2012  Simon Poirier  <simpoir@gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
@@ -10,7 +10,7 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
-#-------------------------------------------------------------------------------
+------------------------------------------------------------------------------*/
 /**
  *
  * Base naming rule:
