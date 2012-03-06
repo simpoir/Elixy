@@ -1,3 +1,6 @@
+Elixy is a work in progress and mostly broken/incomplete/insecure.
+Seriously, don't use it for now.
+
 REQUIREMENTS
 ============
 
@@ -20,6 +23,6 @@ TESTING
 
 The provided maven config has an embedded tomcat config for your pleasure
 
- # mvn tomcat:run
+ # mvn -P test tomcat:run-war
  Then navigate to http://localhost:8080/elixy
 
