@@ -8,7 +8,8 @@ import java.io.OutputStream;
 import org.zkoss.lang.Threads;
 import org.zkoss.zk.ui.Desktop;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zul.api.Textbox;
+
+import com.simpoir.zk.vt.VirtTerm;
 
 public class ThreadedConsole extends Thread {
 
@@ -16,10 +17,10 @@ public class ThreadedConsole extends Thread {
 	private final Process _proc;
 	private final BufferedReader _is;
 	private final int i = 0;
-	private final Textbox _console;
+	private final VirtTerm _console;
 	private final OutputStream _os;
 
-	public ThreadedConsole(Desktop desktop, Textbox console, Process proc) {
+	public ThreadedConsole(Desktop desktop, VirtTerm console, Process proc) {
 		_desktop = desktop;
 		_proc = proc;
 		_is = new BufferedReader(new InputStreamReader(proc.getInputStream()));
@@ -60,9 +61,7 @@ public class ThreadedConsole extends Thread {
 			char[] buf = new char[1024];
 			int len = _is.read(buf);
 			if (len != 0) {
-				// force push by resetting value to null
-				_console.setValue("");
-				_console.setValue(new String(buf));
+				_console.setText(new String(buf));
 			}
 		}
 	}

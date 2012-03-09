@@ -13,10 +13,10 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.SimpleTreeModel;
 import org.zkoss.zul.SimpleTreeNode;
-import org.zkoss.zul.api.Textbox;
 import org.zkoss.zul.api.Treeitem;
 
 import com.simpoir.elixy.view.LocalTreeNode;
+import com.simpoir.zk.vt.VirtTerm;
 
 public class Controller {
 
@@ -83,7 +83,7 @@ public class Controller {
 		return new LocalContainerControl(host, container).getState();
 	}
 
-	public void attach(Textbox console, Treeitem item)
+	public void attach(VirtTerm console, Treeitem item)
 			throws InterruptedException {
 		String host = item.getParentItemApi().getLabel();
 		String container = item.getLabel();
