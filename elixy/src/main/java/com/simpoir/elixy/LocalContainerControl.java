@@ -16,6 +16,8 @@ public class LocalContainerControl {
 	private final String _name;
 	private static final String CMD_PREFIX =
 			Controller.getProps().getProperty("LXC_CMD_PREFIX");
+	private static final String CMD_PTYFY =
+			Controller.getProps().getProperty("PTYFY_PATH");
 
 	public enum State {
 		RUNNING,
@@ -93,10 +95,11 @@ public class LocalContainerControl {
 			POSIX posix = (POSIX) Native.loadLibrary("c", POSIX.class);
 			int pt = posix.posix_openpt(0400|02);
 			proc = Runtime.getRuntime().exec(new String[] {
-					"/home/simpoir/Source/elixy/elixy/ptyfy.py",
+					"python",
+					CMD_PTYFY,
 					"--name",
 					_name
-			});
+			}, new String[] {"LXC_CMD_PREFIX="+CMD_PREFIX});
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
