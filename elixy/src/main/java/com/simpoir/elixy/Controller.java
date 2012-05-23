@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.zkoss.zk.ui.Desktop;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.SimpleTreeModel;
 import org.zkoss.zul.SimpleTreeNode;
@@ -113,7 +114,7 @@ public class Controller {
 				new SimpleTreeNode("ROOT", Arrays.asList(nodes)));
 	}
 
-	public void doSomething() {
+	public void doSomething(Event evt) {
 	}
 
 }

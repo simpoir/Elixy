@@ -21,10 +21,9 @@
     void onAttach(com.simpoir.zk.vt.VirtTerm console) {
         com.simpoir.elixy.Controller.getInstance().attach(console, treeitem);
     }
-    void onKeyStroke(Textbox console_out) {
-        com.simpoir.elixy.Controller.getInstance().doSomething();
-        byte[] ch = console_out.getValue().getBytes();
-        ((com.simpoir.elixy.ThreadedConsole)desktop.getAttribute("console")).write(ch);
+    void onKeyStroke(com.simpoir.zk.vt.VirtTerm console) {
+        com.simpoir.elixy.Controller.getInstance().doSomething(event);
+        ((com.simpoir.elixy.ThreadedConsole)desktop.getAttribute("console")).write();
     }
       </zscript>
       <toolbarbutton label="Refresh" onClick="refreshContent()"/>
@@ -49,7 +48,7 @@
         <tabpanel>this contains params</tabpanel>
         <tabpanel>
           <button label="Attach to console" onClick="onAttach(console)"/>
-          <virtterm id="console" cols="80" rows="24" />
+          <virtterm id="console" cols="80" rows="24" onType="onKeyStroke(console)"/>
         </tabpanel>
       </tabpanels>
     </tabbox>
