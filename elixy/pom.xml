@@ -26,6 +26,10 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
+  <properties>
+    <tomcat-plugin-version>2.0-beta-1</tomcat-plugin-version>
+  </properties>
+
   <profiles>
     <profile>
       <id>test</id>
@@ -37,7 +41,40 @@
           <plugin>
             <groupId>org.apache.tomcat.maven</groupId>
             <artifactId>tomcat7-maven-plugin</artifactId>
-            <version>2.0-beta-1</version>
+            <version>${tomcat-plugin-version}</version>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>standalone</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.tomcat.maven</groupId>
+            <artifactId>tomcat7-maven-plugin</artifactId>
+            <version>${tomcat-plugin-version}</version>
+            <executions>
+              <execution>
+                <id>tomcat-run</id>
+                <goals>
+                  <goal>exec-war-only</goal>
+                </goals>
+                <phase>package</phase>
+                <configuration>
+                  <path>/elixy</path>
+                  <!-- optional only if you want to use a preconfigured server.xml file -->
+                  <!--
+                  <serverXml>src/main/tomcatconf/server.xml</serverXml>
+                  -->
+                  <!-- optional values which can be configurable -->
+                  <!--
+                  <attachArtifactClassifier>default value is exec-war but you can customize</attachArtifactClassifier>
+                  <attachArtifactClassifierType>default value is jar</attachArtifactClassifierType>
+                  -->
+                </configuration>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>
