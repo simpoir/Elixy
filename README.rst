@@ -1,5 +1,6 @@
-Elixy is a work in progress and mostly broken/incomplete/insecure.
-Seriously, don't use it for now.
+This project is dead. I recommend switching to LXD which has nice tooling and remote control.
+
+Seriously, don't use this.
 
 REQUIREMENTS
 ============
